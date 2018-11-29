@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FB_Pizza" Id="{4112eb09-a32b-497d-9a14-4ebf43d24a50}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_Pizza
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	eStyle		: E_PizzaStyle;
+	bBroccoli	: BOOL;
+	bCheese		: BOOL;
+	bSalami		: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="bHasBroccoli" Id="{d32b6276-dfdd-4987-9330-43d3a510e0cf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bHasBroccoli : BOOL]]></Declaration>
+      <Get Name="Get" Id="{63a8cf99-0577-4f60-b5a3-2fe96a5797eb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bHasBroccoli := this^.bBroccoli;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8c899d30-a660-437f-959e-9d83415ecc7a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[this^.bBroccoli := bHasBroccoli;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="bHasCheese" Id="{8418113b-d6cf-43fd-8adb-49b754bf0b3a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bHasCheese : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8d0a2ad2-f621-45bb-ac8c-79038cb60a80}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bHasCheese := this^.bCheese;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c3b1c124-02e9-4c87-a2ea-583313aba593}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[this^.bCheese := bHasCheese;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="bHasSalami" Id="{2282c824-2d39-49b6-8802-0140441c439e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC bHasSalami : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d713f99c-01ae-4946-addb-d518b6a927d1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bHasSalami := this^.bSalami;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4ce4d4b9-365d-49bc-bd4d-dabd52f340c3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[this^.bSalami := bHasSalami;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ePizzaStyle" Id="{e9ab37f1-76a3-42d0-b784-3e1d03c363de}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ePizzaStyle : E_PizzaStyle]]></Declaration>
+      <Get Name="Get" Id="{96100350-a6d8-4995-93b4-19fcf65e6570}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ePizzaStyle := this^.eStyle;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2e623bd7-11ff-40d4-ae50-6dcc0c160a07}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[this^.eStyle := ePizzaStyle;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FB_init" Id="{1b070e03-28f9-4434-9eef-c36c4d33f58c}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains	: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode		: BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ePizzaStyle		: E_PizzaStyle;
+	bHasBroccoli	: BOOL;
+	bHasCheese 		: BOOL;
+	bHasSalami		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.eStyle := ePizzaStyle;
+THIS^.bBroccoli := bHasBroccoli;
+THIS^.bCheese := bHasCheese;
+this^.bSalami := bHasSalami;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetPrice" Id="{03d31fdd-6e7c-41d0-95b7-2f6838ec1645}">
+      <Declaration><![CDATA[METHOD PUBLIC GetPrice : LREAL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (THIS^.eStyle = E_PizzaStyle.eItalian) THEN
+	GetPrice := 4.5;
+ELSIF (THIS^.eStyle = E_PizzaStyle.eAmerican) THEN
+	GetPrice := 4.2;
+ELSE
+	GetPrice := 0;
+	RETURN;
+END_IF
+IF (THIS^.bBroccoli) THEN
+	GetPrice := GetPrice + 0.8;
+END_IF
+IF (THIS^.bCheese) THEN
+	GetPrice := GetPrice + 1.1;
+END_IF
+IF (THIS^.bSalami) THEN
+	GetPrice := GetPrice + 1.4;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Pizza">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasBroccoli.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasBroccoli.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasCheese.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasCheese.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasSalami.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.bHasSalami.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.ePizzaStyle.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.ePizzaStyle.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.FB_init">
+      <LineId Id="7" Count="0" />
+      <LineId Id="12" Count="2" />
+    </LineIds>
+    <LineIds Name="FB_Pizza.GetPrice">
+      <LineId Id="15" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="16" Count="3" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="6" Count="2" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

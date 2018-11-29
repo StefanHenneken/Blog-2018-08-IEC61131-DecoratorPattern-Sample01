@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <DUT Name="E_PizzaStyle" Id="{d4d7769a-0fb2-490d-bdaf-f6e802b8ca0d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_PizzaStyle :
+(
+	eAmerican	:= 0,
+	eItalian	:= 1
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

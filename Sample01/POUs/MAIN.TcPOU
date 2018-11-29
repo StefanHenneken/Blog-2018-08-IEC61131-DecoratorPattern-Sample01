@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MAIN" Id="{8628af66-e1f3-48a0-aced-3f5f2bc2e309}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	fbAmericanSalamiPizza		: FB_Pizza(ePizzaStyle := E_PizzaStyle.eAmerican, bHasBroccoli := FALSE, bHasCheese := TRUE, bHasSalami := TRUE);
+	fbItalianVegetarianPizza	: FB_Pizza(ePizzaStyle := E_PizzaStyle.eItalian, bHasBroccoli := TRUE, bHasCheese := FALSE, bHasSalami := FALSE);
+END_VAR
+
+    ]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
